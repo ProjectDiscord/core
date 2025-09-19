@@ -12,7 +12,7 @@ const prisma = new PrismaClient({
 		{ emit: 'event', level: 'warn' },
 		{ emit: 'event', level: 'error' },
 	],
-});
+}); 
 
 export class DiscordClient extends Client {
 	public commands: Collection<string, CommandInterface> = new Collection();

@@ -1,5 +1,5 @@
 import { SlashCommandInterface, EventInterface, PrefixCommandInterface } from '@projectdiscord/shared';
-import { Client, ClientOptions, Collection, GatewayIntentBits, Partials } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import config, { ProjectInterface } from './config.js';
 
 import { logger } from './logger.js';
@@ -62,7 +62,7 @@ export class DiscordClient extends Client {
 		this.config = config;
 
 		prisma.$on('query', (e) => {
-			logger.debug(`Prisma Query: ${e}`, e);
+			logger.debug(`Prisma Query: ${e.query}`, e);
 		});
 		prisma.$on('info', (e) => {
 			logger.info(`Prisma Info: ${e.message}`);

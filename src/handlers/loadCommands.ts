@@ -1,6 +1,6 @@
 import { DiscordClient } from '../discordClient.js';
 import { SlashCommandInterface, ObjectNameIDArray } from '@projectdiscord/shared';
-import { ApplicationCommandDataResolvable, Events } from 'discord.js';
+import { ApplicationCommandDataResolvable, REST, Routes, Events } from 'discord.js';
 import path from 'node:path';
 import { readdirSync, existsSync } from 'node:fs';
 import { stat } from 'node:fs/promises';
@@ -52,7 +52,13 @@ async function processFolder(
 	);
 }
 
-export async function loadCommands(client: DiscordClient, rootDir: string) {
+export async function loadCommands(
+	client: DiscordClient,
+	rootDir: string,
+	token: string,
+	clientId: string,
+	guilds?: ObjectNameIDArray[],
+) {
 	const prefixFolder = path.join(rootDir, 'commands/prefix');
 	const slashFolder = path.join(rootDir, 'commands/slash');
 
@@ -65,12 +71,17 @@ export async function loadCommands(client: DiscordClient, rootDir: string) {
 	await processFolder(client, slashFolder, false, output);
 
 	client.once(Events.ClientReady, async () => {
+		const rest = new REST({ version: '10' }).setToken(token);
+
 		try {
-			await client.application?.commands.set(output.global);
-			logger.info(`Registered ${output.global.length} global slash commands.`);
-			if (client.config.guilds?.length) {
-				for (const guild of client.config.guilds as ObjectNameIDArray[]) {
-					await client.guilds.cache.get(guild.id)?.commands.set(output.dev);
+			if (output.global.length) {
+				await rest.put(Routes.applicationCommands(clientId), { body: output.global });
+				logger.info(`Registered ${output.global.length} global slash commands.`);
+			}
+
+			if (guilds?.length && output.dev.length) {
+				for (const guild of guilds) {
+					await rest.put(Routes.applicationGuildCommands(clientId, guild.id), { body: output.dev });
 					logger.info(`Registered ${output.dev.length} dev slash commands in guild ${guild.name} (${guild.id})`);
 				}
 			}

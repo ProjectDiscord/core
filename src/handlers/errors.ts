@@ -1,5 +1,5 @@
 import { EmbedBuilder, WebhookClient } from 'discord.js';
-import { DiscordClient, logger } from '../index.js';
+import { BaseClient, logger } from '../index.js';
 
 interface DevNotificationOptions {
 	webhookUrl?: string;
@@ -12,7 +12,7 @@ interface DevNotificationOptions {
  *   ENABLE_SEND_TO_WEBHOOK=true
  *   ERROR_WEBHOOK_URL=https://discord.com/api/webhooks/...
  */
-export function registerErrorHandlers(client: DiscordClient, options?: DevNotificationOptions) {
+export function registerErrorHandlers(client: BaseClient, options?: DevNotificationOptions) {
 	const enabled = process.env.ENABLE_ERROR_HANDLER === 'true';
 	const sendToWebhook = process.env.ENABLE_SEND_TO_WEBHOOK === 'true';
 	const webhookUrl = options?.webhookUrl || process.env.ERROR_WEBHOOK_URL;

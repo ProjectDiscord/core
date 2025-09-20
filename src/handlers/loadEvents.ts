@@ -1,10 +1,10 @@
-import { DiscordClient } from '../discordClient.js';
+import { BaseClient } from '../index.js';
 import { EventInterface } from '@projectdiscord/shared';
 import path from 'node:path';
 import { readdirSync, existsSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
-export async function loadEvents(client: DiscordClient, rootDir: string) {
+export async function loadEvents(client: BaseClient, rootDir: string) {
 	const eventsFolder = path.join(rootDir, 'events');
 
 	if (!existsSync(eventsFolder)) {

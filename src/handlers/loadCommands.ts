@@ -1,14 +1,13 @@
-import { DiscordClient } from '../discordClient.js';
+import { BaseClient, logger } from '../index.js';
 import { SlashCommandInterface, ObjectNameIDArray } from '@projectdiscord/shared';
 import { ApplicationCommandDataResolvable, REST, Routes, Events } from 'discord.js';
 import path from 'node:path';
 import { readdirSync, existsSync } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
-import { logger } from '../logger.js';
 
 async function processFolder(
-	client: DiscordClient,
+	client: BaseClient,
 	folder: string,
 	isPrefix: boolean,
 	output: { global: ApplicationCommandDataResolvable[]; dev: ApplicationCommandDataResolvable[] },
@@ -53,7 +52,7 @@ async function processFolder(
 }
 
 export async function loadCommands(
-	client: DiscordClient,
+	client: BaseClient,
 	rootDir: string,
 	token: string,
 	clientId: string,

@@ -14,7 +14,7 @@ export const prisma = new PrismaClient({
 	],
 });
 
-export class DiscordClient extends Client {
+export class BaseClient extends Client {
 	public slashCommands: Collection<string, SlashCommandInterface> = new Collection();
 	public prefixCommands: Collection<string, PrefixCommandInterface> = new Collection();
 	public events: Collection<string, EventInterface> = new Collection();

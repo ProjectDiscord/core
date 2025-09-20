@@ -7,16 +7,17 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const getVersion = (workspaceName: string): string => {
-  const filePath = path.resolve(__dirname, `../../${workspaceName}/VERSION`);
-  if (!fs.existsSync(filePath)) return 'unknown';
-  return fs.readFileSync(filePath, 'utf-8').trim();
+	const baseDir = ['core', 'shared'].includes(workspaceName) ? 'packages' : 'bots';
+	const filePath = path.resolve(__dirname, `../../../${baseDir}/${workspaceName}/VERSION`);
+	if (!fs.existsSync(filePath)) return 'unknown';
+	return fs.readFileSync(filePath, 'utf-8').trim();
 };
 
 export const getAllVersions = (): Record<string, string> => {
-  const workspaces = ['core', 'shared', 'client', 'helper'];
-  const versions: Record<string, string> = {};
-  for (const ws of workspaces) {
-    versions[ws] = getVersion(ws);
-  }
-  return versions;
+	const workspaces = ['core', 'shared', 'client', 'helper'];
+	const versions: Record<string, string> = {};
+	for (const ws of workspaces) {
+		versions[ws] = getVersion(ws);
+	}
+	return versions;
 };

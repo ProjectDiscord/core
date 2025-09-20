@@ -5,6 +5,9 @@ export * from './baseClient.js';
 export * from './config.js';
 export * from './logger.js';
 
+// Version Functions
+export * from './version.js';
+
 // Re-export all handlers
 export * from './handlers/errors.js';
 export * from './handlers/loadEvents.js';

@@ -1,6 +1,6 @@
 import { SlashCommandInterface, EventInterface, PrefixCommandInterface } from '@projectdiscord/shared';
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
-import config, { ProjectInterface } from './config.js';
+import { config, ProjectInterface } from './config.js';
 
 import { logger } from './logger.js';
 

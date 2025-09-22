@@ -9,6 +9,16 @@ interface BotInterface {
 }
 
 export interface ProjectInterface {
+	dashboard?: {
+		port: number;
+		domain: string;
+		redirectUri: string;
+		license: string;
+		ownerIDs: string[];
+		websiteName: string;
+		colorScheme: 'dark' | 'pink' | 'blue' | 'red' | 'green' | 'yellow' | 'custom';
+		supportMail: string;
+	};
 	client: BotInterface;
 	helper: BotInterface;
 	guilds: ObjectNameIDArray;
@@ -22,7 +32,17 @@ export interface ProjectInterface {
 	};
 }
 
-const config: ProjectInterface = {
+export const config: ProjectInterface = {
+	dashboard: {
+		port: process.env.DASHBOARD_PORT as unknown as number,
+		domain: process.env.DASHBOARD_DOMAIN as string,
+		redirectUri: process.env.DASHBOARD_REDIRECT_URI as string,
+		license: process.env.DASHBOARD_LICENSE as string,
+		ownerIDs: ['711712752246325343'],
+		websiteName: 'Bot Template',
+		colorScheme: 'pink',
+		supportMail: 'bottemplate@projectdiscord.dk',
+	},
 	client: {
 		client_token: process.env.CLIENT_TOKEN as string,
 		client_id: process.env.CLIENT_ID as string,
@@ -50,5 +70,3 @@ const config: ProjectInterface = {
 		primary: 0x5865f2,
 	},
 };
-
-export default config;

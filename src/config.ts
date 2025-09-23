@@ -18,6 +18,36 @@ export interface ProjectInterface {
 		websiteName: string;
 		colorScheme: 'dark' | 'pink' | 'blue' | 'red' | 'green' | 'yellow' | 'custom';
 		supportMail: string;
+
+		supportServerUrl?: string; // Discord invite
+		supportSlashCommand?: string; // e.g. "/support"
+		useUnderMaintenance?: boolean;
+		underMaintenanceAccessKey?: string;
+		underMaintenanceAccessPage?: string;
+		theme?: {
+			primaryColor: string;
+			secondaryColor: string;
+			backgroundImage?: string;
+			favicon?: string;
+			noGuildIcon?: string;
+		};
+		premium?: {
+			enabled: boolean;
+			title?: string;
+			description?: string;
+			buttonText?: string;
+			buttonUrl?: string;
+		};
+		meta?: {
+			description: string;
+			ogImage?: string;
+			twitterHandle?: string;
+		};
+		rateLimits?: {
+			windowMs: number;
+			max: number;
+			message: string;
+		};
 	};
 	client: BotInterface;
 	helper: BotInterface;
@@ -42,6 +72,36 @@ export const config: ProjectInterface = {
 		websiteName: 'Bot Template',
 		colorScheme: 'pink',
 		supportMail: 'bottemplate@projectdiscord.dk',
+
+		supportServerUrl: 'https://discord.gg/invite',
+		supportSlashCommand: '/support',
+		useUnderMaintenance: false,
+		underMaintenanceAccessKey: process.env.UNDER_MAINT_KEY || 'totalsecretkey',
+		underMaintenanceAccessPage: '/maintenance-access',
+		theme: {
+			primaryColor: '#ff0000',
+			secondaryColor: '#ff0000',
+			backgroundImage: 'https://www.imageshine.in/uploads/gallery/geometric-Blue-Wallpaper-Free-Download.jpg',
+			favicon: 'https://github.com/ProjectDiscord.png',
+			noGuildIcon: 'https://pnggrid.com/wp-content/uploads/2021/05/Discord-Logo-Circle-1024x1024.png',
+		},
+		premium: {
+			enabled: true,
+			title: 'Want more from ProjectDiscord?',
+			description: 'Check out premium features below!',
+			buttonText: 'Become Premium',
+			buttonUrl: 'https://github.com/projectdiscord',
+		},
+		meta: {
+			description: 'smh its a bot template',
+			ogImage: '',
+			twitterHandle: '@projectdiscord',
+		},
+		rateLimits: {
+			windowMs: 15 * 60 * 1000,
+			max: 100,
+			message: 'Sorry, you are ratelimited!',
+		},
 	},
 	client: {
 		client_token: process.env.CLIENT_TOKEN as string,

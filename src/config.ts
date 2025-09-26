@@ -20,7 +20,7 @@ export interface ProjectInterface {
 		supportMail: string;
 
 		supportServerUrl?: string; // Discord invite
-		supportSlashCommand?: string; // e.g. "/support"
+		supportSlashUrl?: string; // e.g. "/support"
 		useUnderMaintenance?: boolean;
 		underMaintenanceAccessKey?: string;
 		underMaintenanceAccessPage?: string;
@@ -74,7 +74,7 @@ export const config: ProjectInterface = {
 		supportMail: 'bottemplate@projectdiscord.dk',
 
 		supportServerUrl: 'https://discord.gg/invite',
-		supportSlashCommand: '/support',
+		supportSlashUrl: '/support',
 		useUnderMaintenance: false,
 		underMaintenanceAccessKey: process.env.UNDER_MAINT_KEY || 'totalsecretkey',
 		underMaintenanceAccessPage: '/maintenance-access',
